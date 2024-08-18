@@ -6,24 +6,32 @@ def ceaser_cipher(text, spaces=5)
 
   text = text.chars
   text.each do |letter|
-    letterIndex = letterArray.index(letter)
-    unless letter == " "
+    letterIndex = letterArray.index(letter.downcase)
+    if letterArray.include?(letter.downcase)
       if letterIndex+spaces <= letterArray.length
-        
-        transformedArray.push(letterArray[letterIndex + spaces])
+        unless letter == letter.upcase
+          transformedArray.push(letterArray[letterIndex + spaces])
+        else
+          transformedArray.push(letterArray[letterIndex + spaces].upcase)
+        end
 
       else
         wrappedLetterIndex = letterIndex+spaces - letterArray.length
-        transformedArray.push(letterArray[wrappedLetterIndex])
+        unless letter == letter.upcase
+          transformedArray.push(letterArray[wrappedLetterIndex])
+        else
+          transformedArray.push(letterArray[wrappedLetterIndex].upcase)
+        end
+
       end
 
     else
-      transformedArray.push(" ")
+      transformedArray.push(letter)
     end
   end
     transformedText = transformedArray.join
 end
 
-text = "abc dex"
+text = "A2! Ruby! :)"
 
 puts ceaser_cipher(text)
